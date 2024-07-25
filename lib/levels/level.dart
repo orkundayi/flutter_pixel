@@ -5,8 +5,9 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter_pixel/actors/player.dart';
 
 class Level extends World {
-  Level({required this.levelName});
+  Level({required this.levelName, required this.player});
   String levelName;
+  final Player player;
   late TiledComponent level;
   @override
   FutureOr<void> onLoad() async {
@@ -17,7 +18,7 @@ class Level extends World {
     for (var spawnPoint in spawnPointsLayer!.objects) {
       switch (spawnPoint.class_) {
         case 'Player':
-          final player = Player(character: 'Ninja Frog', position: spawnPoint.position);
+          player.position = spawnPoint.position;
           add(player);
           break;
         default:
